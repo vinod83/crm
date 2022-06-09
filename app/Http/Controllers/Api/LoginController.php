@@ -60,6 +60,7 @@ class LoginController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:8',
+            'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048'
         ]);
 
         if ($validator->fails()) return sendError('Validation Error.', $validator->errors(), 422);
@@ -67,11 +68,20 @@ class LoginController extends Controller
             return response()->json(['Validation Error' => $validator->errors()], 422);
         } */
 
+
+        // $name = $request->file('image')->getClientOriginalName(); 
+        // $path = $request->file('image')->store('public/images');
+
+        // file upload.
+        $imageName = time().'.'.$request->image->extension();
+        $request->image->move(public_path('images'), $imageName);
+
         try {
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => bcrypt($request->password),
+                'image' => $imageName
             ]);
 
             $success['name'] = $user->name;
