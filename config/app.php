@@ -176,6 +176,7 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         // Laravel\Passport\PassportServiceProvider::class,
+        Yajra\DataTables\DataTablesServiceProvider::class,  
 
     ],
 

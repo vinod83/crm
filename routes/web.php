@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\UserController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,6 +19,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('users', [UserController::class, 'index'])->name('users.index'); // to check datatable.
+Route::get('posts', [PostController::class, 'index'])->name('posts.index'); // to check datatable.
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
